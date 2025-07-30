@@ -376,16 +376,28 @@ export function UploadPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="aspect-video bg-gaming-darker rounded-lg flex items-center justify-center border border-gaming-border">
+                <div className="aspect-video bg-gaming-darker rounded-lg border border-gaming-border overflow-hidden">
                   {file ? (
-                    <div className="text-center">
-                      <Play className="h-12 w-12 mx-auto mb-2 text-primary" />
-                      <p className="text-sm text-muted-foreground">Video preview will appear here</p>
-                    </div>
+                    <video
+                      src={URL.createObjectURL(file)}
+                      className="w-full h-full object-cover"
+                      controls
+                      preload="metadata"
+                      onLoadedMetadata={(e) => {
+                        const video = e.target as HTMLVideoElement;
+                        console.log('Video loaded:', {
+                          duration: video.duration,
+                          width: video.videoWidth,
+                          height: video.videoHeight
+                        });
+                      }}
+                    />
                   ) : (
-                    <div className="text-center">
-                      <FileVideo className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
-                      <p className="text-sm text-muted-foreground">Upload a video to see preview</p>
+                    <div className="flex items-center justify-center h-full">
+                      <div className="text-center">
+                        <FileVideo className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
+                        <p className="text-sm text-muted-foreground">Upload a video to see preview</p>
+                      </div>
                     </div>
                   )}
                 </div>

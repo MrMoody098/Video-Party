@@ -166,6 +166,10 @@ export function VideoModal({
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
             onEnded={() => setIsPlaying(false)}
+            onError={(e) => {
+              console.error('Video error:', e);
+              console.error('Video URL:', videoUrl);
+            }}
             muted={isMuted}
           />
           
