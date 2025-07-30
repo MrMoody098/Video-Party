@@ -19,6 +19,7 @@ interface UploadedClip {
   filename: string;
   originalName: string;
   size: number;
+  thumbnail_url?: string;
 }
 
 export function Homepage() {
@@ -98,6 +99,8 @@ export function Homepage() {
 
   const handleDeleteVideo = async (clipId: string) => {
     try {
+      console.log('🗑️ Deleting video with ID:', clipId);
+      
       const response = await fetch(`http://localhost:3001/api/clips/${clipId}`, {
         method: 'DELETE',
       });
@@ -105,11 +108,15 @@ export function Homepage() {
       if (response.ok) {
         // Remove the clip from the local state
         setUploadedClips(uploadedClips.filter(clip => clip.id !== clipId));
+        console.log('✅ Video deleted successfully from UI');
+        alert('Video deleted successfully!');
       } else {
-        console.error('Failed to delete video');
+        console.error('❌ Failed to delete video');
+        alert('Failed to delete video. Please try again.');
       }
     } catch (error) {
-      console.error('Error deleting video:', error);
+      console.error('💥 Error deleting video:', error);
+      alert('Error deleting video. Please try again.');
     }
   };
 
@@ -154,7 +161,7 @@ export function Homepage() {
                 <div key={clip.id} className="relative group cursor-pointer">
                   <div className="aspect-video rounded-lg overflow-hidden bg-gaming-darker">
                     <video 
-                      src={`http://localhost:3001/uploads/${clip.filename}`}
+                      src={`http://localhost:3001/api/video/${clip.filename}`}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       muted
                       preload="metadata"
@@ -254,7 +261,8 @@ export function Homepage() {
                   <VideoCard 
                     key={clip.id}
                     title={clip.title}
-                    thumbnail={`http://localhost:3001/uploads/${clip.filename}`}
+                    thumbnail={clip.thumbnail_url || `http://localhost:3001/api/video/${clip.filename}`}
+                    videoUrl={`http://localhost:3001/api/video/${clip.filename}`}
                     duration="0:00"
                     views={`${clip.views}`}
                     likes={`${clip.likes}`}
@@ -284,7 +292,8 @@ export function Homepage() {
                   <VideoCard 
                     key={clip.id}
                     title={clip.title}
-                    thumbnail={`http://localhost:3001/uploads/${clip.filename}`}
+                    thumbnail={clip.thumbnail_url || `http://localhost:3001/api/video/${clip.filename}`}
+                    videoUrl={`http://localhost:3001/api/video/${clip.filename}`}
                     duration="0:00"
                     views={`${clip.views}`}
                     likes={`${clip.likes}`}
@@ -314,7 +323,8 @@ export function Homepage() {
                   <VideoCard 
                     key={clip.id}
                     title={clip.title}
-                    thumbnail={`http://localhost:3001/uploads/${clip.filename}`}
+                    thumbnail={clip.thumbnail_url || `http://localhost:3001/api/video/${clip.filename}`}
+                    videoUrl={`http://localhost:3001/api/video/${clip.filename}`}
                     duration="0:00"
                     views={`${clip.views}`}
                     likes={`${clip.likes}`}

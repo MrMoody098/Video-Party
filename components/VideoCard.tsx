@@ -9,6 +9,7 @@ import { useState } from "react";
 interface VideoCardProps {
   title: string;
   thumbnail: string;
+  videoUrl?: string; // Add video URL prop
   duration: string;
   views: string;
   likes: string;
@@ -25,6 +26,7 @@ interface VideoCardProps {
 export function VideoCard({
   title,
   thumbnail,
+  videoUrl,
   duration,
   views,
   likes,
@@ -148,21 +150,19 @@ export function VideoCard({
             >
               <Share className="h-3 w-3" />
             </Button>
-            {isOwner && (
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="h-6 w-6 hover:text-destructive"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (clipId && window.confirm('Are you sure you want to delete this video? This action cannot be undone.')) {
-                    onDelete?.(clipId);
-                  }
-                }}
-              >
-                <Trash2 className="h-3 w-3" />
-              </Button>
-            )}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-6 w-6 hover:text-destructive"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (clipId && window.confirm('Are you sure you want to delete this video? This action cannot be undone.')) {
+                  onDelete?.(clipId);
+                }
+              }}
+            >
+              <Trash2 className="h-3 w-3" />
+            </Button>
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@ export function VideoCard({
     <VideoModal
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
-      videoUrl={thumbnail}
+      videoUrl={videoUrl || `http://localhost:3001/api/video/${clipId}`}
       title={title}
       game={game}
       views={parseInt(views) || 0}
