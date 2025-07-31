@@ -9,6 +9,7 @@ import { Badge } from "./ui/badge";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Progress } from "./ui/progress";
+import { getApiUrl } from "../src/utils/api";
 
 export function UploadPage() {
   const [dragActive, setDragActive] = useState(false);
@@ -71,7 +72,7 @@ export function UploadPage() {
   useEffect(() => {
     const fetchExistingGames = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/clips');
+        const response = await fetch(getApiUrl('/api/clips'));
         if (response.ok) {
           const clips = await response.json() as Array<{ game: string }>;
           const games = [...new Set(clips.map(clip => clip.game))];
@@ -132,7 +133,7 @@ export function UploadPage() {
         setUploadProgress(Math.min(progress, 90));
       }, 100);
       
-      const response = await fetch('http://localhost:3001/api/upload', {
+              const response = await fetch(getApiUrl('/api/upload'), {
         method: 'POST',
         body: formData,
       });

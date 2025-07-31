@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { VideoModal } from "./VideoModal";
 import { useState } from "react";
+import { getVideoUrl } from "../src/utils/api";
 
 interface VideoCardProps {
   title: string;
@@ -172,7 +173,7 @@ export function VideoCard({
     <VideoModal
       isOpen={isModalOpen}
       onClose={() => setIsModalOpen(false)}
-      videoUrl={videoUrl || `http://localhost:3001/api/video/${clipId}`}
+              videoUrl={videoUrl || (clipId ? getVideoUrl(clipId) : '')}
       title={title}
       game={game}
       views={parseInt(views) || 0}
