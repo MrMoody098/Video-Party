@@ -1,0 +1,58 @@
+#!/bin/bash
+
+echo "🚀 Gamer Video App UI - Deployment Helper"
+echo "=========================================="
+
+echo ""
+echo "📋 Prerequisites Check:"
+echo "1. Make sure you have a GitHub account"
+echo "2. Ensure your code is pushed to GitHub"
+echo "3. Have your environment variables ready"
+echo ""
+
+echo "🔧 Environment Variables Needed:"
+echo "SUPABASE_URL=your_supabase_url"
+echo "SUPABASE_ANON_KEY=your_supabase_anon_key"
+echo "R2_ACCOUNT_ID=your_cloudflare_account_id"
+echo "R2_ACCESS_KEY_ID=your_r2_access_key"
+echo "R2_SECRET_ACCESS_KEY=your_r2_secret_key"
+echo "R2_BUCKET_NAME=video-party-storage"
+echo ""
+
+echo "📝 Next Steps:"
+echo "1. Deploy Backend to Railway:"
+echo "   - Go to https://railway.app"
+echo "   - Sign up with GitHub"
+echo "   - Click 'New Project' → 'Deploy from GitHub repo'"
+echo "   - Select your repository"
+echo "   - Add environment variables in Railway dashboard"
+echo ""
+
+echo "2. Deploy Frontend to Vercel:"
+echo "   - Go to https://vercel.com"
+echo "   - Sign up with GitHub"
+echo "   - Click 'New Project'"
+echo "   - Import your GitHub repository"
+echo "   - Configure build settings (Vite, dist output)"
+echo "   - Add VITE_API_URL environment variable"
+echo ""
+
+echo "3. Update vercel.json with your backend URL:"
+echo "   - Replace 'your-backend-url.railway.app' with your actual Railway URL"
+echo ""
+
+echo "4. Test your deployment:"
+echo "   - Visit your Vercel frontend URL"
+echo "   - Test video upload functionality"
+echo "   - Check if videos are stored in R2"
+echo "   - Verify database operations in Supabase"
+echo ""
+
+echo "✅ Your app will be live for free!"
+echo "   - Frontend: Vercel (100GB bandwidth/month)"
+echo "   - Backend: Railway ($5 credit/month)"
+echo "   - Database: Supabase (500MB, 1GB bandwidth)"
+echo "   - Storage: Cloudflare R2 (10GB, 1M requests/month)"
+echo ""
+
+echo "📚 For detailed instructions, see DEPLOYMENT_GUIDE.md" 

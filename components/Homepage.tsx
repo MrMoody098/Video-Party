@@ -5,6 +5,7 @@ import { Badge } from "./ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { VideoCard } from "./VideoCard";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { getApiUrl, getVideoUrl } from "../src/utils/api";
 
 interface UploadedClip {
   id: string;
@@ -57,7 +58,7 @@ export function Homepage() {
       try {
         setLoading(true);
         setError("");
-        const response = await fetch('http://localhost:3001/api/clips');
+        const response = await fetch(getApiUrl('/api/clips'));
         if (response.ok) {
           const clips = await response.json();
           setUploadedClips(clips);
@@ -101,7 +102,7 @@ export function Homepage() {
     try {
       console.log('🗑️ Deleting video with ID:', clipId);
       
-      const response = await fetch(`http://localhost:3001/api/clips/${clipId}`, {
+              const response = await fetch(getApiUrl(`/api/clips/${clipId}`), {
         method: 'DELETE',
       });
       
@@ -161,7 +162,7 @@ export function Homepage() {
                 <div key={clip.id} className="relative group cursor-pointer">
                   <div className="aspect-video rounded-lg overflow-hidden bg-gaming-darker">
                     <video 
-                      src={`http://localhost:3001/api/video/${clip.filename}`}
+                      src={getVideoUrl(clip.filename)}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       muted
                       preload="metadata"
@@ -261,8 +262,8 @@ export function Homepage() {
                   <VideoCard 
                     key={clip.id}
                     title={clip.title}
-                    thumbnail={clip.thumbnail_url || `http://localhost:3001/api/video/${clip.filename}`}
-                    videoUrl={`http://localhost:3001/api/video/${clip.filename}`}
+                    thumbnail={clip.thumbnail_url || getVideoUrl(clip.filename)}
+                    videoUrl={getVideoUrl(clip.filename)}
                     duration="0:00"
                     views={`${clip.views}`}
                     likes={`${clip.likes}`}
@@ -292,8 +293,8 @@ export function Homepage() {
                   <VideoCard 
                     key={clip.id}
                     title={clip.title}
-                    thumbnail={clip.thumbnail_url || `http://localhost:3001/api/video/${clip.filename}`}
-                    videoUrl={`http://localhost:3001/api/video/${clip.filename}`}
+                    thumbnail={clip.thumbnail_url || getVideoUrl(clip.filename)}
+                    videoUrl={getVideoUrl(clip.filename)}
                     duration="0:00"
                     views={`${clip.views}`}
                     likes={`${clip.likes}`}
@@ -323,8 +324,8 @@ export function Homepage() {
                   <VideoCard 
                     key={clip.id}
                     title={clip.title}
-                    thumbnail={clip.thumbnail_url || `http://localhost:3001/api/video/${clip.filename}`}
-                    videoUrl={`http://localhost:3001/api/video/${clip.filename}`}
+                    thumbnail={clip.thumbnail_url || getVideoUrl(clip.filename)}
+                    videoUrl={getVideoUrl(clip.filename)}
                     duration="0:00"
                     views={`${clip.views}`}
                     likes={`${clip.likes}`}
